@@ -1,4 +1,5 @@
 import javax.swing.*;
+import java.util.List;
 import java.util.Objects;
 
 public class Repositor {
@@ -8,52 +9,57 @@ public class Repositor {
         this.name = name;
     }
 
-    public void agregar_producto(Inventario inventario){
+    public void agregar_producto(Inventario inventario) {
 
         String prod = MisFunciones.pedirStrNoVacio("producto?");
+        if (prod == null) return;
         int cant = MisFunciones.pedirNumeroMasCero("cantidad?");
-        for (Producto producto: inventario.stock) {
-            if (Objects.equals(producto.getNombre(), prod)){
+        if (cant == 0) return;
+        for (Producto producto : inventario.getStock()) {
+            if (Objects.equals(producto.getNombre(), prod)) {
                 producto.setCantidad(producto.getCantidad() + cant);
                 return;
             }
         }
         String cat = MisFunciones.pedirStrNoVacio("categ?");
+        if (cat==null) return;
         double prec = MisFunciones.pedirNumeroMasCero("precio?");
+        if (prec == -1) return;
 
-
-
-        Producto newProd = new Producto(prod,cat,prec,cant);
-        inventario.stock.add(newProd);
+        Producto newProd = new Producto(prod, cat, prec, cant);
+        inventario.getStock().add(newProd);
 
     }
 
-    public void eliminar_producto(Inventario inventario){
-        String prod = MisFunciones.pedirStrNoVacio("producto?");
-
-        for (Producto producto: inventario.stock) {
-            if (Objects.equals(producto.getNombre(), prod)){
-                inventario.stock.remove(producto);
-                JOptionPane.showMessageDialog(null, "prod eliminado");
-                return;
-            }
+    public void eliminar_producto(Inventario stock) {
+        if (stock.getStock().isEmpty()) {
+            JOptionPane.showMessageDialog(null, "No hay productos");
+        } else {
+            Producto prodElejido = (Producto) MisFunciones.eligirObjDeLista(stock.getStock());
+            if (prodElejido != null) stock.getStock().remove(prodElejido);
         }
-        JOptionPane.showMessageDialog(null, "No existe el producto");
-
-
     }
 
-    public void buscar_producto(Inventario inventario){
-
+    public Producto buscar_producto(Inventario inventario) {
         String prod = MisFunciones.pedirStrNoVacio("producto?");
-
-        for (Producto producto: inventario.stock) {
-            if (Objects.equals(producto.getNombre(), prod)){
+        for (Producto producto : inventario.getStock()) {
+            if (Objects.equals(producto.getNombre(), prod)) {
                 JOptionPane.showMessageDialog(null, producto);
-                return;
+                return producto;
             }
         }
         JOptionPane.showMessageDialog(null, "No existe el producto");
+        return null;
+    }
+
+    public void actualizar_producto(Inventario stock) {
+
+        if (stock.getStock().isEmpty()) {
+            JOptionPane.showMessageDialog(null, "No hay productos");
+        } else {
+            Producto pr = (Producto) MisFunciones.eligirObjDeLista(stock.getStock());
+            if (pr != null) pr.setCantidad(MisFunciones.pedirNumeroMasCero("cantidad?"));
+        }
 
     }
 
@@ -71,4 +77,6 @@ public class Repositor {
     public void setName(String name) {
         this.name = name;
     }
+
+
 }

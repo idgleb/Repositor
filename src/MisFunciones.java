@@ -17,6 +17,16 @@ import java.util.function.Supplier;
 
 public class MisFunciones {
 
+    public static Object eligirObjDeLista(List list) {
+
+        if (list.isEmpty()) return null;
+
+        return JOptionPane.showInputDialog(null,
+                "elige", "Ursol",
+                JOptionPane.QUESTION_MESSAGE, null, list.toArray(), 0);
+
+    }
+
     public static int eligirEn(String[][] matriz) {
 
         String[] listaElementosEnMatriz = new String[matriz.length];
@@ -54,7 +64,7 @@ public class MisFunciones {
         String str;
         do {
             str = JOptionPane.showInputDialog(null, msg);
-            if (str == null) return 0;
+            if (str == null) return -1;
         } while (str.isEmpty() || !isNumeroDe_1_10000000(str));
         return Integer.parseInt(str);
     }

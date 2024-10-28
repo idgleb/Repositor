@@ -15,8 +15,8 @@ public class Producto {
     @Override
     public String toString() {
         return "Producto " +
-                "nombre=" + nombre + '\'' +
-                ", categoria=" + categoria + '\'' +
+                "nombre=" + nombre  +
+                ", categoria=" + categoria  +
                 ", precio=" + precio +
                 ", cantidad=" + cantidad +
                 '\n';
@@ -51,6 +51,8 @@ public class Producto {
     }
 
     public void setCantidad(int cantidad) {
-        this.cantidad = cantidad;
+
+        if (cantidad>0) this.cantidad = cantidad;
+
     }
 }

@@ -6,11 +6,12 @@ public class Main {
         Repositor repositor = new Repositor("Gleb");
         Inventario stock = new Inventario();
 
-        String[] opc = {"agregar_producto", "buscar_producto", "eliminar_producto"};
+        String[] opc = {"agregar_producto", "buscar_producto", "eliminar_producto", "Actualizar prod"};
         Runnable[] ac = new Runnable[]{
                 () -> repositor.agregar_producto(stock),
                 () -> repositor.buscar_producto(stock),
                 () -> repositor.eliminar_producto(stock),
+                () -> repositor.actualizar_producto(stock),
         };
         MisFunciones.interfaz(ac, opc, stock::toString);
 
